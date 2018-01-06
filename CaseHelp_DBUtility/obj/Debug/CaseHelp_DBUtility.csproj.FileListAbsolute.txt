@@ -1,0 +1,14 @@
+F:\案情收集系统\CaseHelp\WeiXinAssistant_DBUtility\bin\Debug\CaseHelp_DBUtility.dll
+F:\案情收集系统\CaseHelp\WeiXinAssistant_DBUtility\bin\Debug\CaseHelp_DBUtility.pdb
+F:\案情收集系统\CaseHelp\WeiXinAssistant_DBUtility\obj\Debug\CaseHelp_DBUtility.csprojResolveAssemblyReference.cache
+F:\案情收集系统\CaseHelp\WeiXinAssistant_DBUtility\obj\Debug\CaseHelp_DBUtility.dll
+F:\案情收集系统\CaseHelp\WeiXinAssistant_DBUtility\obj\Debug\CaseHelp_DBUtility.pdb
+F:\案情收集系统\CaseHelp\CaseHelp_DBUtility\bin\Debug\CaseHelp_DBUtility.dll
+F:\案情收集系统\CaseHelp\CaseHelp_DBUtility\bin\Debug\CaseHelp_DBUtility.pdb
+F:\案情收集系统\CaseHelp\CaseHelp_DBUtility\obj\Debug\CaseHelp_DBUtility.dll
+F:\案情收集系统\CaseHelp\CaseHelp_DBUtility\obj\Debug\CaseHelp_DBUtility.pdb
+E:\CaseHelp\CaseHelp_DBUtility\bin\Debug\CaseHelp_DBUtility.dll
+E:\CaseHelp\CaseHelp_DBUtility\bin\Debug\CaseHelp_DBUtility.pdb
+E:\CaseHelp\CaseHelp_DBUtility\obj\Debug\CaseHelp_DBUtility.dll
+E:\CaseHelp\CaseHelp_DBUtility\obj\Debug\CaseHelp_DBUtility.pdb
+F:\案情收集系统\CaseHelp\CaseHelp_DBUtility\obj\Debug\CaseHelp_DBUtility.csprojResolveAssemblyReference.cache

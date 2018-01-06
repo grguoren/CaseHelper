@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Text;
+using ThoughtWorks;
+using ThoughtWorks.QRCode;
+using ThoughtWorks.QRCode.Codec;
+using ThoughtWorks.QRCode.Codec.Data;
+
+namespace Benz.Web.Controllers
+{
+    public class MakeQRCodeController : Controller
+    {
+        //
+        // GET: /MakeQRCode/
+
+        public ActionResult Index(string data)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(Request.QueryString["data"]))
+                {
+                    string str = Request.QueryString["data"];
+
+                    //初始化二维码生成工具
+                    QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
+                    qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+                    qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
+                    qrCodeEncoder.QRCodeVersion = 0;
+                    qrCodeEncoder.QRCodeScale = 4;
+
+                    //将字符串生成二维码图片
+                    Bitmap image = qrCodeEncoder.Encode(str, Encoding.Default);
+
+                    //保存为PNG到内存流  
+                    MemoryStream ms = new MemoryStream();
+                    image.Save(ms, ImageFormat.Png);
+
+                    //输出二维码图片
+                    Response.BinaryWrite(ms.GetBuffer());
+                    Response.End();
+                }
+            }
+            catch (Exception ex)
+            {
+                //FileHelper.FileAdd(Server.MapPath("/QRcodepayEx.txt"), ex.Message);
+            }
+            return View();
+        }
+
+    }
+}

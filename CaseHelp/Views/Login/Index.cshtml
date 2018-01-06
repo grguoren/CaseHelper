@@ -1,0 +1,87 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "";
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>案情问卷系统-后台登录</title>
+<link rel="stylesheet" type="text/css" href="/Content/css/css.css" />
+</head>
+<body>
+<div class="sign">
+	<div class="ta"><img alt="" src="/content/images/tx.png" class="img" /><p class="color">案情问卷系统</p></div>
+    <ul class="list clear">
+    	<li class="item"><i class="i"></i>
+            <input id="name" class="tab" type="text" name="name_login"  placeholder="用户名" />
+    	</li>
+        <li class="item"><i class="i1"></i>
+            <input id="pwd" class="tab" type="password" name="pwd_login" placeholder="密码" />
+        </li>
+    </ul>
+    <a  id="Logins" class="tb bgcolor">登录</a>
+</div>
+<div class="signbj"></div>
+    <script type="text/javascript" src="/Scripts/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#name").focus();
+            $("#Logins").click(function () {
+                LoginAjax();
+            });
+            $("input[name='name_login']").keyup(function (event) {
+                if (event.keyCode == 13) {
+                    LoginAjax();
+                }
+            });
+            $("input[name='pwd_login']").keyup(function (event) {
+                if (event.keyCode == 13) {
+                    LoginAjax();
+                }
+            });
+        });
+        function LoginAjax() {
+            if ($("#name").val() == "") {
+                alert("用户名不能为空！");
+                $("#name").focus()
+                return;
+            }
+            if ($("#pwd").val() == "") {
+                alert("密码不能为空！");
+                $("#pwd").focus();
+                return;
+            }
+            var urlstr = "@Url.Content("~/Home/LoginAjax")";
+            $.ajax({
+                type: "POST",
+                data: { name: $("#name").val(), pwd: $("#pwd").val(), tpwd: "@ViewBag.CheckLogin" },
+                timeout: 200000,
+                dataType: "text",
+                url: urlstr,
+                success: function (data) {
+                    if (data == "yes") {
+                        //alert("登录成功");
+                        window.location.href = "@Url.Content("~/Home/Index")";
+                    }
+                    else if (data == "nomain") {//不是首页
+                        //alert("登录成功");
+                        window.location.href = "@Url.Content("~/Home/Index")";
+                    }
+                    else {
+                        alert(data);
+                    }
+                },
+                error: function (msg) {
+                    alert("用户名或密码错误，请重新输入");
+                },
+                beforeSend: function (msg) {
+
+                },
+                dataType: "text"
+            });
+    }
+    </script>
+</body>
+</html>
+

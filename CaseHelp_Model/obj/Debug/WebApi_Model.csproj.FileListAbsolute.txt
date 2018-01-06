@@ -1,0 +1,8 @@
+C:\Users\Administrator\Desktop\WebApi\WebApi_Model\bin\Debug\WebApi_Model.dll
+C:\Users\Administrator\Desktop\WebApi\WebApi_Model\bin\Debug\WebApi_Model.pdb
+C:\Users\Administrator\Desktop\WebApi\WebApi_Model\obj\Debug\WebApi_Model.dll
+C:\Users\Administrator\Desktop\WebApi\WebApi_Model\obj\Debug\WebApi_Model.pdb
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_Model\bin\Debug\WebApi_Model.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_Model\bin\Debug\WebApi_Model.pdb
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_Model\obj\Debug\WebApi_Model.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_Model\obj\Debug\WebApi_Model.pdb

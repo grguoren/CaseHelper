@@ -1,0 +1,8 @@
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_DBUtility\bin\Debug\WeiXinAssistant_DBUtility.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_DBUtility\bin\Debug\WeiXinAssistant_DBUtility.pdb
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_DBUtility\obj\Debug\WeiXinAssistant_DBUtility.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_DBUtility\obj\Debug\WeiXinAssistant_DBUtility.pdb
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WeiXinAssistant\WeiXinAssistant_DBUtility\bin\Debug\WeiXinAssistant_DBUtility.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WeiXinAssistant\WeiXinAssistant_DBUtility\bin\Debug\WeiXinAssistant_DBUtility.pdb
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WeiXinAssistant\WeiXinAssistant_DBUtility\obj\Debug\WeiXinAssistant_DBUtility.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WeiXinAssistant\WeiXinAssistant_DBUtility\obj\Debug\WeiXinAssistant_DBUtility.pdb

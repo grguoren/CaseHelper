@@ -1,0 +1,517 @@
+﻿@{
+    CasePaper paper = ViewBag.Paper as CasePaper;
+    var questlist = ViewBag.QList as List<CaseQuestBank>;
+}
+@using CaseHelp_Model;
+@model UserInfo
+<link rel="stylesheet" type="text/css" href="/content/css/css.css" />
+<div class="hzy-head bgcolor2 clear">
+      <div class="fl hzy-info"><img src="/content/images/tx3.png" width="34" height="34" class="img" /></div>
+      <div class="fl hzy-tab">
+            <ul class="list clear">
+               <li class="li-a"><a href="/home/index" class="hover">创建问卷</a></li>
+               <li class="li-a"><a href="/home/paper">我的问卷</a></li>
+               <li class="li-a"><a href="/home/information">基本资料</a></li>
+                    <li class="li-a"><a href="/paper/count" >数据导出</a></li>
+               <li class="li-a"><a href="/home/caseno">案号导入</a></li>
+            </ul>
+          <input type="hidden" value="@(paper != null?paper.Id:0)" id="hidepaperid" />
+     </div>
+     
+    <div class="name">@(Model != null?Model.NickName:"")丨<a href="@Url.Content("~/Login/LoginOut")" class="white">退出</a></div>
+</div>
+<div class="sy-head">
+	<span class="fl color">创建问卷</span>
+    <span class="fr"><a href="/Paper/Index/@(paper != null?paper.Id:0)"  class="a"><i class="i"></i>预览</a><a href="javascript:" onclick="gotoUrl('@(paper != null?paper.Id:0)');" class="bgcolor2">生成问卷</a></span>
+</div>
+<div class="w100 clear">
+   <div class="fl hzy-form clear">
+      <span class="txta mttt">问题类型</span>
+       <ul class="list clear">
+         <li class="li-b"><a onclick="qy_box('.danxuan')" class="a"><i class="icon ia"></i>单选题</a></li>
+         <li class="li-b"><a onclick="qy_box('.duoxuan')" class="a"><i class="icon ib"></i>多选题</a></li>
+         <li class="li-b"><a onclick="qy_box('.danwb')" class="a"><i class="icon ic"></i>单行文本题</a></li>
+         <li class="li-b"><a onclick="qy_box('.duowb')" class="a"><i class="icon id"></i>多行文本题</a></li>
+         <li class="li-b"><a href="javascript:" class="a"><i class="icon if"></i>结束页</a></li>
+       </ul>
+   </div>
+   <div class="fl hzy-container clear">
+        <div class="edit zx-tab">
+            <ul class="eist clear tab-title" data-id="0">
+                <li class="item hover">问卷编辑</li>
+                <li class="item ">结束页</li>
+            </ul>
+            <div class="edits">
+                <div class="editsa tab-content-item0">
+                    
+                	<div class="answers">
+                        @{ 
+                            if(paper != null)
+                            {
+                                <h2 class="a" id="questh2">@paper.Title</h2>
+                                <p class="b" id="questp">@paper.Remark</p>
+                                <ul class="list clear">
+                                    <li class="item"><span class="fl">案&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</span><input class="tab" type="text"></li>
+        @*                            <li class="item"><span class="fl">您的姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span><input class="tab" type="text"></li>
+                                    <li class="item"><span class="fl">您的联系电话：</span><input class="tab" type="text"></li>*@
+                                </ul>
+                                <ul class="lisa clear" id="quest_ans">
+                                     @{
+                                        if (questlist != null && questlist.Count > 0)
+                                        {
+                                            int num = 0;
+                                            foreach (CaseQuestBank item in questlist)
+                                            {
+                                                num++;
+                                                switch(item.TypeId)
+                                                {    case 1:
+                                                    {
+                                                        <li class="item hover" id="@item.Id">
+                        	                                <div class="itemt">
+                                                                <div class="ta">@(num)、@item.Problem<em class="color">[单选]</em></div>
+                                                                @if(!string.IsNullOrEmpty(item.ItemList))
+                                                                {
+                                                                    string[] sArray = item.ItemList.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries);
+                                                                    foreach (string i in sArray)
+                                                                    {
+                                                                          <div class="tb">
+                                                                            <label class="zx-lab clearfix">
+                                                                                <input class="zx-input" type="radio" name="danxuan">
+                                                                                <div class="zx-input-k radio "><i class="zx"></i></div>
+                                                                                <span class="zx-lab-text">@i</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                            <div class="itemb">
+                            	                                <a href="javascript:" onclick="qy_box('.danxuan');" class="na hover">编辑</a>
+                                                               @* <a href="#" class="na">复制</a>*@
+                                                                <a href="javascript:" onclick="questdel('@item.Id');" class="na">删除</a>
+                                                            </div>
+                                                        </li>
+                                                                break;
+                                                    }
+                                                case 2:
+                                                    {
+                                                        <li class="item hover" id="@item.Id">
+                        	                                <div class="itemt">
+                                                                <div class="ta">@(num)、@item.Problem<em class="color">[多选]</em></div>
+                                                                @if(!string.IsNullOrEmpty(item.ItemList))
+                                                                {
+                                                                    string[] sArray = item.ItemList.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries);
+                                                                    foreach (string i in sArray)
+                                                                    {
+                                                                         <div class="tb">
+                                                                            <label class="zx-lab">
+                                                                                <input class="zx-input" type="checkbox">
+                                                                                <div class="zx-input-k"><i class="zx"></i></div>
+                                                                                <span class="zx-lab-text">@i</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                            <div class="itemb">
+                            	                                <a href="javascript:" onclick="qy_box('.duoxuan');" class="na hover">编辑</a>
+                                                            @*    <a href="#" class="na">复制</a>*@
+                                                                <a href="javascript:" onclick="questdel('@item.Id');" class="na">删除</a>
+                                                            </div>
+                                                        </li>
+                                                        break;
+                                                    }
+                                                case 4:
+                                                    {
+                                                        <li class="item" id="@item.Id"> <div class="itemt"><div class="ta">@(num)、@item.Problem</div><div class="tc"><input class="tab1" type="text" /></div></div><div class="itemb"><a href="javascript:" onclick="qy_box('.danwb');" class="na hover">编辑</a><a href="javascript:" onclick="questdel('@item.Id');" class="na">删除</a></div></li>
+                                                        break;
+                                                    }
+                                                case 5:
+                                                    {
+                                                        <li class="item" id="@item.Id"><div class="itemt"> <div class="ta">@(num)、@item.Problem</div><div class="tc"><textarea class="tab2"></textarea></div></div><div class="itemb"><a href="javascript:" onclick="qy_box('.duowb');" class="na hover">编辑</a><a href="javascript:" onclick="questdel('@item.Id');" class="na">删除</a></div></li>
+                                                        break;
+                                                    }
+                                                default:
+                                                    break;
+                                                }
+
+                                            }
+                                        } 
+                                    }
+                                </ul> 
+                            }
+                            else
+                            {
+                                <h2 class="a" id="questh2"></h2>
+                                <p class="b" id="questp"></p>
+                                <ul class="list clear">
+                                    <li class="item"><span class="fl">案&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</span><input class="tab" type="text"></li>
+        @*                            <li class="item"><span class="fl">您的姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span><input class="tab" type="text"></li>
+                                    <li class="item"><span class="fl">您的联系电话：</span><input class="tab" type="text"></li>*@
+                                </ul>
+                                <ul class="lisa clear" id="quest_ans">
+                                </ul> 
+                            }
+                        }
+                    </div>
+                   
+                	<a href="http://www.zhihucn.com/" target="_blank" class="zhihu zhihu1">系统由直弧股份提供技术支持</a>
+                </div>
+                <div class="editss tab-content-item0" style="display:none;">
+                    <div class="answer-a">
+                        <i class="ai"></i>
+                        <p class="bb">信息填写到此结束，感谢您的使用！</p>
+                    </div>
+                    <a href="http://www.zhihucn.com/" target="_blank" class="zhihu">系统由直弧股份提供技术支持</a>
+                </div>
+            </div>
+        </div>
+       
+   </div>
+</div>
+
+
+<!--弹窗-->
+<!--问卷标题-->
+<div  class="title poo-tc"   style="display:none;"> 
+<div class="pop-two pop-three"  >
+    <div class="tkt fotms">
+        <ul class="list clear" id="">
+            <li class="li-a"><span class="fl">标题</span><input type="text" id="questtitle" class="box-bz"></li> 
+            <li class="li-a"><span class="fl">描述</span><textarea id="questdesc" name="" cols="" rows="" class="box-bzrea"></textarea></li>  
+        </ul>
+    </div>
+    <span class="anniu clear annbo"> <a href="javascript:" onclick="questadd();" class="qd subm">确定</a> <a href="javascript:" class="qx qx2 subm" onclick="hide_box('.title');">取消</a> </span> 
+    <a href="javascript:" class="icon cb zx-close" onclick="hide_box('.title');"></a> 
+</div> 
+<div class="bg"></div>         
+</div>
+<!--问卷标是 end--》
+
+<!--单选-->     
+<div  class="danxuan poo-tc"   style="display:none;"> 
+<div class="pop-two pop-three"  >
+         <div class="tkt fotms">
+             <ul class="list clear" id="onelist">
+                   <li class="li-a"><span class="fl">题目</span><textarea name="" id="danxuantitle" cols="" rows="" class="box-bzrea"></textarea></li> 
+       @*            <li class="li-a"><span class="fl">备注</span><input id="danxuanremark" type="text" class="box-bz"></li>*@  
+                   <li class="li-a ">
+                       <div class="sele">
+                            <select name=""> 
+                                <option value="1" selected="selected">单选题</option> 
+                                <option value="2">多选题</option> 
+                                <option value="3">下拉题</option>                             
+                                <option value="4">单行文本题</option> 
+                                <option value="5">多行文本题</option>                             
+                            </select> 
+                       </div>     
+                   </li>
+                   <li class="li-a li-b"><i class="icon ds"></i><input type="text"  class="box-bz"></li>  
+                   <li class="li-a li-b"><i class="icon ds"></i><input type="text"  class="box-bz"></li>  
+             </ul>
+             <ul class="list clear">
+                 <li class="li-a li-b"><a href="javascript:" onclick="newitem('onelist');" type="text" class="box-bz box-bz2">新建选项</a></li>  
+             </ul>
+         </div>
+          <span class="anniu clear annbo"> <a href="javascript:" onclick="onequestadd();" class="qd subm">确定</a> <a href="javascript:" class="qx qx2 subm" onclick="hide_box('.danxuan');">取消</a> </span> 
+          <a href="javascript:" class="icon cb zx-close" onclick="hide_box('.danxuan');"></a> 
+    </div> 
+     <div class="bg"></div>         
+</div>
+<!--单选 end-->     
+
+<!--多选（选项后悬浮出关闭）-->   
+<div  class="duoxuan poo-tc"  style="display:none;"> 
+<div class="pop-two pop-three">
+         <div class="tkt fotms">
+             <ul class="list clear" id="morelist">
+                   <li class="li-a"><span class="fl">题目</span><textarea name=""  id="duoxuantitle" cols="" rows="" class="box-bzrea"></textarea></li> 
+@*                   <li class="li-a"><span class="fl">备注</span><input id="duoxuanremark" type="text" class="box-bz"></li>  *@
+                   <li class="li-a ">
+                       <div class="sele">
+                            <select name=""> 
+                                <option value="1">单选题</option> 
+                                <option value="2" selected="selected">多选题</option> 
+                                <option value="3">下拉题</option>                             
+                                <option value="4">单行文本题</option> 
+                                <option value="5">多行文本题</option>                             
+                            </select> 
+                       </div>     
+                   </li>
+                   <li class="li-a li-b"><i class="icon ds"></i><input type="text" class="box-bz"></li> 
+                   <li class="li-a li-b"><i class="icon ds"></i><input type="text" class="box-bz"></li>  
+                   <li class="li-a li-b"><i class="icon ds"></i><input type="text" class="box-bz"></li>    
+             </ul>
+             <ul class="list clear">
+                 <li class="li-a li-b"><a href="javascript:" onclick="newitem('morelist');" type="text" class="box-bz box-bz2">新建选项</a></li>  
+             </ul>
+         </div>
+          <span class="anniu clear annbo annbo"> <a href="javascript:" onclick="morequestadd();" class="qd subm">确定</a> <a  href="javascript:" class="qx qx2 subm zx-close" onclick="hide_box('.duoxuan');">取消</a> </span> 
+          <a  href="javascript:" class="icon cb zx-close" onclick="hide_box('.duoxuan');"></a> 
+    </div>
+     <div class="bg"></div>    
+</div>
+
+<!--多行文本--> 
+<div  class="duowb poo-tc"  style="display:none;">      
+<div class="pop-two">
+         <div class="tkt fotms">
+             <ul class="list clear">
+                   <li class="li-a"><span class="fl">题目</span><textarea name="" id="duowbtitle" cols="" rows="" class="box-bzrea"></textarea></li> 
+       @*            <li class="li-a"><span class="fl">备注</span><input type="text" class="box-bz"></li> *@ 
+                   <li class="li-a ">
+                       <div class="sele">
+                            <select name=""> 
+                                <option value="1">单选题</option> 
+                                <option value="2">多选题</option> 
+                                <option value="3">下拉题</option>                             
+                                <option value="4">单行文本题</option> 
+                                <option value="5" selected="selected">多行文本题</option>                             
+                            </select> 
+                       </div>     
+                   </li>
+                              
+             </ul>
+             <span class="anniu clear annbo"> <a href="javascript:" onclick="duowbquestadd();" class="qd subm">确定</a> <a  href="javascript:" class="qx qx2 subm zx-close" onclick="hide_box('.duowb');">取消</a> </span> 
+             <a  href="javascript:" class="icon cb zx-close" onclick="hide_box('.duowb');"></a> 
+         </div>
+    </div>  
+     <div class="bg"></div>     
+</div>
+
+<!--单行文本--> 
+<div  class="danwb poo-tc"  style="display:none;">      
+<div class="pop-two">
+         <div class="tkt fotms">
+             <ul class="list clear">
+                   <li class="li-a"><span class="fl">题目</span><textarea name="" id="danwbtitle" cols="" rows="" class="box-bzrea"></textarea></li> 
+@*                   <li class="li-a"><span class="fl">备注</span><input type="text" class="box-bz"></li> *@ 
+                   <li class="li-a ">
+                       <div class="sele">
+                            <select name=""> 
+                                <option value="1">单选题</option> 
+                                <option value="2">多选题</option> 
+                                <option value="3">下拉题</option>                             
+                                <option value="4" selected="selected">单行文本题</option> 
+                                <option value="5">多行文本题</option>                             
+                            </select> 
+                       </div>     
+                   </li>
+                              
+             </ul>
+             <span class="anniu clear annbo"> <a href="javascript:" onclick="danwbquestadd();" class="qd subm">确定</a> <a  href="javascript:" class="qx qx2 subm zx-close" onclick="hide_box('.danwb');">取消</a> </span> 
+             <a  href="javascript:" class="icon cb zx-close" onclick="hide_box('.danwb');"></a> 
+         </div>
+    </div>  
+     <div class="bg"></div>     
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var hastitle = $("#questh2").text();
+        if (hastitle == "") {
+            qy_box('.title');//创建问卷标题
+        }
+    });
+    //添加标题
+    function questadd()
+    {
+        var title = $("#questtitle").val();
+        var desc = $("#questdesc").val();
+        if (title == "")
+        {
+            alert("请输入问卷标题");
+            return false;
+        }
+        if (desc == "")
+        {
+            alert("请输入问卷描述");
+            return false;
+        }
+        $("#questh2").text(title);
+        $("#questp").text(desc);
+        var uid = '@(Model != null ? Model.ID : 0)';
+        $.ajax({
+            url: "/ajax/AddNewPaper",
+            type: "post",
+            dataType: "text",
+            data: { title:$.trim(title), desc:desc,userid:uid },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },
+            success: function (d) {
+                if (d != "0") {
+                    $("#hidepaperid").val(d);
+                    hide_box('.title');
+                } 
+            }
+        });
+
+       
+    }
+
+    //添加选项
+    function newitem(ul)
+    {
+        $("#"+ul).append("<li class=\"li-a li-b\"><i class=\"icon ds\"></i><input type=\"text\" class=\"box-bz\"></li> ");
+    }
+    //添加单选题
+    function onequestadd()
+    {
+        var qtitle = $("#danxuantitle").val();
+        if (qtitle == "") {
+            alert("请输入题目");
+            return false;
+        }
+        var html = '';
+        var danitem = "";
+        html += '<li class="item hover"><div class="itemt"><div class="ta">' + $("#danxuantitle").val() + '<em class="color">[单选]</em></div>';
+        $("#onelist .li-b input").each(function (i) {
+            html += '<div class="tb">';
+            html += '<label class="zx-lab clearfix"><input class="zx-input" type="radio" name="danxuan"><div class="zx-input-k radio "><i class="zx"></i></div>';
+            html += '<span class="zx-lab-text">' + $(this).val() + '</span></label></div>';
+            danitem += $(this).val() + "||";
+        });
+        html += '</div>';
+        html += '<div class="itemb"><a href="javascript:" onclick="qy_box(".danxuan");" class="na hover">编辑</a><a href="#" class="na">删除</a></div>'
+        html += '</li>';
+       
+        var uid = '@(Model != null ? Model.ID : 0)';
+        $.ajax({
+            url: "/ajax/AddDanxuanQuest",
+            type: "post",
+            dataType: "text",
+            data: { title: $.trim(qtitle), typeid: 1, itemlist: danitem, pid: $("#hidepaperid").val(), userid: uid },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },
+            success: function (d) {
+
+                if (d == "ok") {
+                    $("#quest_ans").append(html);
+                    $(".danxuan").hide();
+                }
+            }
+        });
+    }
+
+    //添加多选题
+    function morequestadd() {
+        var qtitle = $("#duoxuantitle").val();
+        if (qtitle == "") {
+            alert("请输入题目");
+            return false;
+        }
+        var html = '';
+        var danitem = "";
+        html += '<li class="item hover"><div class="itemt"><div class="ta">' + $("#danxuantitle").val() + '<em class="color">[多选]</em></div>';
+        $("#morelist .li-b input").each(function (i) {
+            html += ' <div class="tb"><label class="zx-lab"><input class="zx-input" type="checkbox">';  
+            html += '<div class="zx-input-k"><i class="zx"></i></div><span class="zx-lab-text">' + $(this).val() + '</span></label></div>';
+            danitem += $(this).val() + "||";
+        });
+        html += '</div>';
+        html += '<div class="itemb"><a href="javascript:" onclick="qy_box(".duoxuan");" class="na hover">编辑</a><a href="#" class="na">删除</a></div>'
+        html += '</li>';
+        var uid = '@(Model != null ? Model.ID : 0)';
+        $.ajax({
+            url: "/ajax/AddDanxuanQuest",
+            type: "post",
+            dataType: "text",
+            data: { title: $.trim(qtitle), typeid: 2, itemlist: danitem, pid: $("#hidepaperid").val(), userid: uid },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },
+            success: function (d) {
+                if (d == "ok") {
+                    $("#quest_ans").append(html);
+                    $(".duoxuan").hide();
+                }
+            }
+        });
+
+    }
+
+    //添加单行文本题
+    function danwbquestadd()
+    {
+        var qtitle = $("#danwbtitle").val();
+        if (qtitle == "") {
+            alert("请输入题目");
+            return false;
+        }
+        var html = '';
+        html += '<li class="item"> <div class="itemt"><div class="ta">' + qtitle + '</div><div class="tc"><input class="tab1" type="text" /></div></div><div class="itemb"><a href="javascript:" onclick="qy_box(".danwb");" class="na hover">编辑</a><a href="#" class="na">删除</a></div></li>';
+        
+        var uid = '@(Model != null ? Model.ID : 0)';
+        $.ajax({
+            url: "/ajax/AddDanxuanQuest",
+            type: "post",
+            dataType: "text",
+            data: { title: $.trim(qtitle), typeid: 4, itemlist: "", pid: $("#hidepaperid").val(), userid: uid },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },
+            success: function (d) {
+                if (d == "ok") {
+                    $("#quest_ans").append(html);
+                    $(".danwb").hide();
+                }
+            }
+        });
+
+       
+    }
+
+    //添加多行文本题
+    function duowbquestadd() {
+        var qtitle = $("#duowbtitle").val();
+        if (qtitle == "") {
+            alert("请输入题目");
+            return false;
+        }
+        var html = '';
+        html += '<li class="item"><div class="itemt"> <div class="ta">' + qtitle + '</div><div class="tc"><textarea class="tab2"></textarea></div></div><div class="itemb"><a href="javascript:" onclick="qy_box(".duowb");" class="na hover">编辑</a><a href="#" class="na">删除</a></div></li>';
+        var uid = '@(Model != null?Model.ID:0)';
+        $.ajax({
+            url: "/ajax/AddDanxuanQuest",
+            type: "post",
+            dataType: "text",
+            data: { title: $.trim(qtitle), typeid: 5, itemlist: "", pid: $("#hidepaperid").val(), userid: uid },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },
+            success: function (d) {
+                if (d == "ok") {
+                    $("#quest_ans").append(html);
+                    $(".duowb").hide();
+                }
+            }
+        });
+    }
+
+    //删除问题
+    function questdel(id)
+    {
+        var li = $("#quest_ans li[id='"+id+"']");
+        if (li.length > 0) {
+            li.remove();
+        }
+        $.ajax({
+            url: "/ajax/DeleteQuest",
+            type: "post",
+            dataType: "text",
+            data: { id: id },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },
+            success: function (d) {
+                if (d == "ok") {
+                    window.location.href = "/Paper/Index/" + pid;
+                }
+            }
+        });
+    }
+
+    function gotoUrl(pid)
+    {
+        $.ajax({
+            url: "/ajax/UpdatePaper",
+            type: "post",
+            dataType: "text",
+            data: { id: pid },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },
+            success: function (d) {
+                if (d == "ok") {
+                    window.location.href = "/Paper/Index/" + pid;
+                }
+            }
+        });
+    }
+</script>

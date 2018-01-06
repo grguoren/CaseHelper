@@ -1,0 +1,113 @@
+﻿@{
+    var paperlist = ViewBag.PList as List<CasePaper>;
+}
+@using CaseHelp_Model;
+@model UserInfo
+<link rel="stylesheet" type="text/css" href="/content/css/css.css" />
+<div class="hzy-head bgcolor2 clear">
+      <div class="fl hzy-info"><img src="/content/images/tx3.png" width="34" height="34" class="img" /></div>
+      <div class="fl hzy-tab">
+            <ul class="list clear">
+               <li class="li-a"><a href="/home/index" >创建问卷</a></li>
+               <li class="li-a"><a href="/home/paper" class="hover">我的问卷</a></li>
+               <li class="li-a"><a href="/home/information">基本资料</a></li>
+               <li class="li-a"><a href="/paper/count" >数据导出</a></li>
+              <li class="li-a"><a href="/home/caseno">案号导入</a></li>
+            </ul>
+     </div>
+     
+    <div class="name">@(Model != null?Model.NickName:"")丨<a href="@Url.Content("~/Login/LoginOut")" class="white">退出</a></div>
+</div>
+<div class="sy-head">
+	<span class="ta"><a href="/home/index" class="a"><i class="i"></i>创建问卷</a></span>
+</div>
+<div class="w100 clear">
+	<ul class="cj-list">
+		<li class="item">
+    		<span class="ta">问卷</span>
+            <span class="td"><span class="aa">操作</span></span>
+            <span class="tc">创建时间</span>
+            <span class="tb">状态</span>  
+    	</li>
+        @{
+            if (paperlist != null && paperlist.Count > 0)
+            {
+                foreach (CasePaper item in paperlist)
+                {
+                    <li class="item item1" id="@item.Id">
+    		            <span class="ta">@item.Title</span>
+                        <span class="td"><a href="/Paper/Count/?pid=@item.Id" class="a">统计数据</a><a href="/Home/Share/@item.Id" class="a">分享</a>
+                            @if(item.Status != 1)
+                            {
+                                <a href="/Home/NewPaper/@item.Id" class="a">编辑</a>
+                            }
+                            <a onclick="policy_open3(6,this,'@item.Id')"  class="a a1">删除</a></span>
+                        <span class="tc">@(item.AddTime != null?item.AddTime.Value.ToString("yyyy-MM-dd HH:mm:ss"):"")</span>
+                        <span class="tb"><a >@(item.Status==0?"待编辑":"已完成")</a></span>
+    	            </li>
+                }
+            } 
+        }
+
+	</ul>
+</div>
+  <!--删除--> 
+ <div  id="test6" style="display:none;">       
+     <div class="shanchu">
+ 	    <div class="shanchu1">是否确认删除？</div>
+        <span class="anniu clear annbo"> <a href="javascript:" class="qd subm "  onclick="queding()">确定</a> <a href="javascript:" class="qx qx2 subm zx-01b" onclick="quxiao()">取消</a> </span>
+        <a href="javascript:" onclick="quxiao()" class="icon cb zx-01b"></a>
+     </div>
+</div>
+<script>
+    var clickthis;
+    var pid = 0;
+    function policy_open3(no, obj,id) {
+        clickthis = obj;
+        pid = id;
+        layer.open({
+            type: 1,
+            title: false,
+            shade: 0.8,
+            area: ['auto', 'auto'],
+            closeBtn: 0,
+            shadeClose: true,
+            skin: 'layui-layer-nobg', //没有背景色
+            content: $('#test' + no).html(),
+            scrollbar: false,
+            success: function (layero, index) {
+               
+            }
+        });
+        return false;
+    };
+    function quxiao() {
+        layer.closeAll()
+    };
+    function queding() {
+        layer.closeAll();
+        var liid = pid;//这是问题的ID
+        delPaper(liid);
+        
+    };
+
+    function delPaper(id)
+    {
+        $.ajax({
+            url: "/ajax/DeletePaper",
+            type: "post",
+            dataType: "text",
+            data: { id: id },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },
+            success: function (d) {
+                if (d == "ok") {
+                    $(clickthis).parents("li").remove();
+                    alert("问卷删除成功");
+                }
+                else {
+                    alert("问卷删除失败，已有客户回答该问卷！");
+                }
+            }
+        });
+    }
+</script>

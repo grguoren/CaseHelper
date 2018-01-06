@@ -1,0 +1,9 @@
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_Common\bin\Debug\WeiXinAssistant_Common.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_Common\bin\Debug\WeiXinAssistant_Common.pdb
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_Common\obj\Debug\WeiXinAssistant_Common.csprojResolveAssemblyReference.cache
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_Common\obj\Debug\WeiXinAssistant_Common.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_Common\obj\Debug\WeiXinAssistant_Common.pdb
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WeiXinAssistant\WeiXinAssistant_Common\bin\Debug\WeiXinAssistant_Common.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WeiXinAssistant\WeiXinAssistant_Common\bin\Debug\WeiXinAssistant_Common.pdb
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WeiXinAssistant\WeiXinAssistant_Common\obj\Debug\WeiXinAssistant_Common.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WeiXinAssistant\WeiXinAssistant_Common\obj\Debug\WeiXinAssistant_Common.pdb

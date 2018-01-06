@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="/content/css/css2.css" />
+    <link rel="stylesheet" type="text/css" href="/content/css/layer.css" />
+    <script type="text/javascript" src="/Scripts/js/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    @RenderBody()
+    
+
+<script type="text/javascript" src="/Scripts/js/zx.js"></script>
+<script type="text/javascript" src="/Scripts/js/layer.js"></script>
+<script type="text/javascript" >
+    function policy_open(no) {
+        layer.open({
+            type: 1,
+            title: false,
+            shade: 0.8,
+            area: ['auto', 'auto'],
+            closeBtn: 0,
+            shadeClose: true,
+            skin: 'layui-layer-nobg', //没有背景色
+            content: $('#test' + no).html(),
+            scrollbar: false,
+            success: function (layero, index) {
+                $('.zx-01b').click(function () { layer.close(index) })
+            }
+        });
+        return false;
+    }
+</script>
+
+</body>
+</html>

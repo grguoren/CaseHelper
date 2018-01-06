@@ -1,0 +1,14 @@
+F:\案情收集系统\CaseHelp\WeiXinAssistant_Common\bin\Debug\CaseHelp_Common.dll
+F:\案情收集系统\CaseHelp\WeiXinAssistant_Common\bin\Debug\CaseHelp_Common.pdb
+F:\案情收集系统\CaseHelp\WeiXinAssistant_Common\obj\Debug\CaseHelp_Common.csprojResolveAssemblyReference.cache
+F:\案情收集系统\CaseHelp\WeiXinAssistant_Common\obj\Debug\CaseHelp_Common.dll
+F:\案情收集系统\CaseHelp\WeiXinAssistant_Common\obj\Debug\CaseHelp_Common.pdb
+F:\案情收集系统\CaseHelp\CaseHelp_Common\bin\Debug\CaseHelp_Common.dll
+F:\案情收集系统\CaseHelp\CaseHelp_Common\bin\Debug\CaseHelp_Common.pdb
+F:\案情收集系统\CaseHelp\CaseHelp_Common\obj\Debug\CaseHelp_Common.dll
+F:\案情收集系统\CaseHelp\CaseHelp_Common\obj\Debug\CaseHelp_Common.pdb
+E:\CaseHelp\CaseHelp_Common\bin\Debug\CaseHelp_Common.dll
+E:\CaseHelp\CaseHelp_Common\bin\Debug\CaseHelp_Common.pdb
+E:\CaseHelp\CaseHelp_Common\obj\Debug\CaseHelp_Common.dll
+E:\CaseHelp\CaseHelp_Common\obj\Debug\CaseHelp_Common.pdb
+F:\案情收集系统\CaseHelp\CaseHelp_Common\obj\Debug\CaseHelp_Common.csprojResolveAssemblyReference.cache

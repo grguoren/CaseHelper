@@ -1,0 +1,8 @@
+C:\Users\Administrator\Desktop\WebApi\WebApi_DBUtility\bin\Debug\WebApi_DBUtility.dll
+C:\Users\Administrator\Desktop\WebApi\WebApi_DBUtility\bin\Debug\WebApi_DBUtility.pdb
+C:\Users\Administrator\Desktop\WebApi\WebApi_DBUtility\obj\Debug\WebApi_DBUtility.dll
+C:\Users\Administrator\Desktop\WebApi\WebApi_DBUtility\obj\Debug\WebApi_DBUtility.pdb
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_DBUtility\bin\Debug\WebApi_DBUtility.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_DBUtility\bin\Debug\WebApi_DBUtility.pdb
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_DBUtility\obj\Debug\WebApi_DBUtility.dll
+D:\微信营销助项目\WebApi和AccessWebApi两个项目\WebApi\WebApi_DBUtility\obj\Debug\WebApi_DBUtility.pdb

@@ -1,0 +1,87 @@
+﻿@using CaseHelp_Model;
+@model UserInfo
+<div class="hzy-head bgcolor2 clear">
+      <div class="fl hzy-info"><img src="/content/images/tx3.png" width="34" height="34" class="img" /></div>
+      <div class="fl hzy-tab">
+            <ul class="list clear">
+               <li class="li-a"><a href="/home/index" >创建问卷</a></li>
+               <li class="li-a"><a href="/home/paper">我的问卷</a></li>
+               <li class="li-a"><a href="/home/information" class="hover">基本资料</a></li>
+                <li class="li-a"><a href="/paper/count" >数据导出</a></li>
+               <li class="li-a"><a href="/home/caseno">案号导入</a></li>
+            </ul>
+     </div>
+     
+    <div class="name">@(Model != null?Model.NickName:"")丨<a href="@Url.Content("~/Login/LoginOut")" class="white">退出</a></div>
+</div>
+
+<div class="w100 clear">
+    <div class="basic-data zx-tab">
+      <div class="data-tab annbo">
+         <ul class="list clear tab-title" data-id="0">
+           <li class="is-a hover">团队信息</li>
+           <li class="is-a is-c">密码重置</li>     
+         </ul>
+      </div>
+      <div class="tianxie tab-content-item0" >
+        <ul class="list clear">
+           <li class="is-b"><span class="text">团队归属</span><input type="text" id="ower" class="info " value="@(Model != null?Model.TeamOwer:"")"></li>
+           <li class="is-b"><span class="text">团队成员</span><input type="text" id="member" class="info " value="@(Model != null?Model.TeamMember:"")"></li>      
+           <li class="is-b"><span class="text">团队宗旨</span><input type="text" id="aim" class="info " value="@(Model != null?Model.TeamAim:"")"></li>
+           <li class="is-b"><span class="text">联系电话</span><input type="text" id="tel" class="info " value="@(Model != null?Model.Telephone:"")"></li>               
+        </ul>
+       <span class="anniu clear"> <a href="javascript:" onclick="updateuser();" class="qd subm">修改</a> </span>
+      </div>
+ 
+      
+    <div class="tianxie mima tab-content-item0" style="display:none;">
+          <ul class="list clear">
+             <li class="is-b"><span class="text">用户名</span><input type="text" id="username" class="info " value="@(Model != null?Model.UserName:"")"></li>
+             <li class="is-b"><span class="text">原密码</span><input type="text" id="oldpwd" class="info " value="@(Model != null?(Model.Pwd.Length <= 6?Model.Pwd:CaseHelp_Core.Helper.EncryptHelper.Decrypt(Model.Pwd)):"")"><a class="icon see" ></a></li>
+             <li class="is-b"><span class="text">新密码</span><input type="text" id="newpwd" class="info " value=""><a class="icon see see2" ></a></li>
+          </ul>
+       <span class="anniu clear"> <a href="javascript:" onclick="updatepwd();" class="qd subm">修改</a>  </span>
+    </div>
+     </div>   
+</div>
+
+<a href="http://www.zhihucn.com/" target="_blank" class="zhihu zhihu1" style=" bottom:0;">系统由直弧股份提供技术支持</a>
+<script type="text/javascript">
+    function updateuser() {
+        var id = '@(Model != null?Model.ID:0)';
+        $.ajax({
+            url: "/ajax/UpdateUser",
+            type: "post",
+            dataType: "text",
+            data: { ower: $("#ower").val(), member: $("#member").val(), aim: $("#aim").val(), tel: $("#tel").val(),id:id },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },
+            success: function (d) {
+                if (d == "ok") {
+                    alert("修改成功");
+                }
+            }
+        });
+    }
+    function updatepwd() {
+        var id = '@(Model != null?Model.ID:0)';
+        $.ajax({
+            url: "/ajax/UpdatePwd",
+            type: "post",
+            dataType: "text",
+            data: { name: $("#username").val(), oldpwd: $("#oldpwd").val(), newpwd: $("#newpwd").val(), id: id },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },
+            success: function (d) {
+                if (d == "ok") {
+                    alert("修改成功");
+                }
+                else if (d == "bad")
+                {
+                    alert("原密码输入错误！");
+                }
+                else {
+                    alert("修改失败");
+                }
+            }
+        });
+    }
+</script>

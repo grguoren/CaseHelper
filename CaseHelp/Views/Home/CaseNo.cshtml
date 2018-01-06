@@ -1,0 +1,62 @@
+﻿@{
+ 
+}
+@using CaseHelp_Model;
+@model UserInfo
+<div class="hzy-head bgcolor2 clear">
+      <div class="fl hzy-info"><img src="/content/images/tx3.png" width="34" height="34" class="img" /></div>
+      <div class="fl hzy-tab">
+            <ul class="list clear">
+              <li class="li-a"><a href="/home/index" >创建问卷</a></li>
+              <li class="li-a"><a href="/home/paper">我的问卷</a></li>
+              <li class="li-a"><a href="/home/information">基本资料</a></li>
+              <li class="li-a"><a href="/paper/count">数据导出</a></li>
+              <li class="li-a"><a href="/home/caseno" class="hover">案号导入</a></li>
+            </ul>
+     </div>
+     
+    <div class="name">@(Model != null?Model.NickName:"")丨<a href="@Url.Content("~/Login/LoginOut")"  class="white">退出</a></div>
+</div>
+
+<div class="w100 clear">
+    <div class="basic-data zx-tab">
+		<div class="basic-datas">
+        	<div class="basic-datas1">
+            	<i class="b"></i>
+            	<input class="tab" id="pic_upload" name="pic_upload" type="file" />
+                <span class="a">上传文件</span>
+            </div>
+            <a href="javascript:"  onclick="Upload()"  class="tc">导入</a>
+        </div>
+	</div>   
+</div>
+
+<a href="http://www.zhihucn.com/" target="_blank" class="zhihu zhihu1" style=" bottom:0;">系统由直弧股份提供技术支持</a>
+<script src="~/Scripts/js/ajaxfileupload.js"></script>
+<script>
+function Upload(t) {
+        var mytd = new Date().getTime();
+
+        if ($("#pic_upload").val() == "") {
+            alert("请选择上传文件"); return false;
+        }
+;
+        $.ajaxFileUpload({
+            url: '/Ajax/ImgAdd',
+            secureuri: false,
+            fileElementId: 'pic_upload',
+            dataType: 'Json',
+            data: null,
+            success: function (data, status) {
+                alert("上传导入成功！");
+                    //location.reload();//刷新单前页(不知道有没有用)
+                },
+                error: function (data, status, e) {
+                    alert(e);
+                }
+
+            });
+            
+
+}
+</script>

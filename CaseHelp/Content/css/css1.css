@@ -1,0 +1,84 @@
+@charset "utf-8";
+/* CSS Document */
+html { font-size: 10px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+@media screen and (max-width:320px){.banner{height:135px}}
+@media screen and (min-width:320px) and (max-width:360px) {.banner{height:135px}}
+@media screen and (min-width:360px) and (max-width:375px) {.banner{height:152px}}
+@media screen and (min-width:375px) and (max-width:384px) {.banner{height:158px}}
+@media screen and (min-width:384px) and (max-width:414px) {.banner{height:162px}}
+@media screen and (min-width:414px) and (max-width:480px) {.banner{height:175px}}
+@media screen and (min-width:480px) and (max-width:639px) { html { font-size: 15px; } }
+@media screen and (min-width:640px) and (max-width:719px) { html { font-size: 20px; }.banner{height:175px} }
+/*@media screen and (min-width:720px) and (max-width:749px) { html { font-size: 22.5px; } }
+@media screen and (min-width:750px) and (max-width:799px) { html { font-size: 23.5px; } }
+@media screen and (min-width:800px) and (max-width:959px) { html { font-size: 25px; } }
+@media screen and (min-width:960px) and (max-width:1079px) { html { font-size: 30px; } }
+@media screen and (min-width:1080px) { html { font-size: 32px; } }*/
+body{font-family:Microsoft Yahei,Helvetica;}
+body,h1,h2,h3,h4,h5,h6,p,ul,li,ol,dd,dl,input,span{ margin:0px; padding:0; }
+a{ text-decoration:none;outline: 0 !important; list-style-type: none; color:#333; }
+a:-webkit-any-link { cursor: auto; }
+input{ border-style:none; border-color:#fff; }
+input,button, textarea{ font-family:"Microsoft Yahei",Arial, Helvetica, sans-serif; color:#666;outline:0; border:0; }
+input:-webkit-any-link { cursor: auto; }
+input:focus{　border:0; }
+li{ list-style:none; }
+h1{ font-size:1.8rem; font-weight:normal; color:#000; }
+h2{ font-size:1.8rem; font-weight:normal; color:#000; line-height:3.5rem; }
+h3{ font-size:1.6rem; font-weight:normal; color:#000; line-height:4rem; }
+h4{ font-size:1.6rem; font-weight:normal; color:#000; line-height:3rem; }
+h5{ font-size:1.4rem; font-weight:normal; color:#000; line-height:3rem; }
+.fl { float: left; display: inline; }
+.fr { float: right; display: inline; }
+em,i{ font-style:normal;}
+.clear:after{content:""; display:block; height:0px; width:100%; clear:both;}
+.fl{ float:left; display:inline-block;}
+.fr{ float:right; display:inline-block;}
+.color { color: #37a4ff !important; }/*颜色*/
+.bgcolor { background: #37a4ff !important; }
+.chover{ color: #37a4ff !important; border:1px solid #37a4ff !important;}
+.gray{ color:#999 !important;}
+.red{ color:#f00;}
+.white{ color:#fff !important;}
+.m0{ margin:0 !important;}
+
+
+/*预览*/
+.answerbj{ background:#53adef;}
+.answer{ width:100%; margin:0 auto;  z-index:999; padding:0 1rem;  box-sizing:border-box;}
+.answer .tp{ display:block; text-align:center;}
+.answer .tp .img{ width:8.2rem; width:8.2rem;  margin-top:2rem;}
+.answer .tp .a{ color:#fff; font-size:2.2rem; height:3rem; line-height:3rem;}
+.answers{ width:100%; background:#fff; border:1px solid #dadada; margin-top:1rem; padding-bottom:1rem;}
+.answers .a{ text-align:center; font-size:1.8rem; height:5rem; line-height:5rem;}
+.answers .b{ width:100%; padding:0 1rem; box-sizing:border-box; line-height:26px; font-size:1.4rem;}
+.answers .listt{ width:100%; padding:0 1rem; box-sizing:border-box;}
+.answers .list{ width:100%;  padding:1rem; box-sizing:border-box; margin-top:2rem; background:#eee;}
+.answers .list .item{ float:left; width:100%; height:2.5rem; line-height:2.5rem; font-size:1.4rem;}
+.answers .list .item .fl{ width:10rem; margin-right:-10rem;}
+.answers .list .item .fl1{padding-left:9rem; width:100%; box-sizing:border-box;}
+.answers .list .item .tab{ border:none; width:100%; border-bottom:1px solid #282828; height:2.4rem; background:#eee;}
+.answers .lisa{ width:100%; padding:0 1rem;  box-sizing:border-box;}
+.answers .lisa .item{ float:left; width:100%; display:inline-block; margin-top:1.5rem;}
+.answers .lisa .item .ta{line-height:3rem; margin-bottom:0.5rem; background:#eee; width:100%; padding:0.2rem 1rem; box-sizing:border-box; font-size:1.4rem;}
+.answers .lisa .item .tb{ display:block; width:100%; float:left; display:inline-block; margin-top:1rem;}
+.answers .lisa .item .tab1{ width:94%; height:3rem; margin:1rem 0 0 3%; border:1px solid #dadada; padding:0 10px; box-sizing:border-box;}
+.answers .lisa .item .tab2{ width:94%; height:10rem;margin:1rem 0 0 3%; line-height:30px; border:1px solid #dadada; padding:5px 10px; box-sizing:border-box;}
+.answers .lisa .item .tab3{ width:8rem; padding:0 1rem; border-bottom:1px solid #333; height:2rem; line-height:2rem; background:#eee;}
+.answers .lisa .item .submit{ width:18rem; height:4rem; border-radius:5px; color:#fff; line-height:4rem; display:block; margin:0 auto; font-size:1.8rem; text-align:center;}
+.answer-b{ font-size:1.6rem; display:block; text-align:center; line-height:30px; color:#fff; margin-top:20px;}
+.answer-b1{ font-size:1.4rem; color:#b3d4f5; display:block; text-align:center; height:40px; line-height:40px; margin-top:10px;}
+.answer-b1 a{color:#b3d4f5;}
+.answer-a{ height:22rem;}
+.answer-a .ai{ width:179px; height:166px; background:url(../images/pic.png) no-repeat 0 -29px; display:block; margin:3rem auto 0 auto; }
+.answer-a .aa{ display:block; text-align:center; font-size:1.4rem; border-bottom:1px solid #cbcbcb; height:6rem; line-height:6rem; width:80%; margin-left:10%;}
+/*复选*/
+.zx-lab{cursor:pointer; display:block;}
+.zx-lab .zx-input{ display:none;}
+.zx-lab .zx-input-k{height:16px; width:16px; border:1px solid #dadada; display:block; float:left; display:block; margin-top:4px;}
+.zx-lab .zx-input-k.radio{ border-radius:50%;}
+.zx-lab .zx-input-k .zx{}
+.zx-lab .zx-input-k.hover .zx{color:#37a4ff; display:block; background:url(../images/pic.png) no-repeat -61px 0; width:14px; height:14px;}
+.zx-lab .zx-input-k.hover{  border:1px solid #37a4ff;}
+.zx-lab .zx-input-k.radio.hover .zx{ background:#37a4ff; display:block; width:12px; height:12px; border-radius:50%; margin:2px auto 0 auto}
+.zx-lab .zx-lab-text{height:24px; line-height:24px; display:block; float:left; padding-left:7px; font-size:1.4rem;}

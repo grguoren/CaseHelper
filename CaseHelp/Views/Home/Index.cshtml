@@ -1,0 +1,69 @@
+﻿@{
+    var paperlist = ViewBag.PList as List<CasePaper>;
+}
+@using CaseHelp_Model;
+@model UserInfo
+<div class="hzy-head bgcolor2 clear">
+      <div class="fl hzy-info"><img src="/content/images/tx3.png" width="34" height="34" class="img" /></div>
+      <div class="fl hzy-tab">
+            <ul class="list clear">
+               <li class="li-a"><a href="/home/index" class="hover">创建问卷</a></li>
+               <li class="li-a"><a href="/home/paper">我的问卷</a></li>
+               <li class="li-a"><a href="/home/information">基本资料</a></li>
+                    <li class="li-a"><a href="/paper/count" >数据导出</a></li>
+                <li class="li-a"><a href="/home/caseno">案号导入</a></li>
+            </ul>
+     </div>
+     
+    <div class="name">@(Model != null?Model.NickName:"")丨<a href="@Url.Content("~/Login/LoginOut")" class="white">退出</a></div>
+</div>
+
+<div class="w100 clear">
+   <div class="fl hzy-form clear">
+      <span class="txta">问题类型</span>
+       <ul class="list clear">
+         <li class="li-b"><a onclick="qy_box('.chuangjian');" class="a"><i class="icon ia"></i>单选题</a></li>
+         <li class="li-b"><a onclick="qy_box('.chuangjian');" class="a"><i class="icon ib"></i>多选题</a></li>
+         <li class="li-b"><a onclick="qy_box('.chuangjian');" class="a"><i class="icon ic"></i>单行文本题</a></li>
+         <li class="li-b"><a onclick="qy_box('.chuangjian');" class="a"><i class="icon id"></i>多行文本题</a></li>
+         @*<li class="li-b"><a onclick="qy_box('.chuangjian');" class="a"><i class="icon ie"></i>填空题</a></li>*@
+       </ul>
+   </div>
+   <div class="fl hzy-container clear">
+       <div class="hzy-bar1">
+            <ul class="list clear">
+              <li class="li-c"><a href="/home/newpaper" class="cjx"><i class="icon ab"></i><em>创建新问卷</em></a></li>
+              @{
+                  if (paperlist != null && paperlist.Count > 0)
+                {
+                    foreach (CasePaper item in paperlist)
+                    {
+                        <li class="li-c">
+                            <i class="icon ac"></i>
+                            <p class="bt">@item.Title</p>
+                            <p class="time">@(item.AddTime != null?item.AddTime.Value.ToString("yyyy-MM-dd HH:mm:ss"):"")</p>
+                            <span class="caozuo"> <a onclick="delPaper('@item.Id')">删除</a><a href="/Home/NewPaper/@item.Id">编辑</a><a href="/Paper/Index/@item.Id">预览</a></span>
+                        </li>    
+                    }
+                } 
+              }
+            </ul>
+       </div>
+       <a href="http://www.zhihucn.com/" target="_blank" class="zhihu">系统由直弧股份提供技术支持</a>
+   </div>
+</div>
+
+<!--弹窗-->
+<!--创建问卷-->
+<div class="chuangjian poo-tc" style="display:none;">     
+    <div class="pop1  clear">
+          <h3 class="bt">是否创建新问卷</h3>
+          <i class="icon ca"></i>
+          <span class="anniu clear">
+              <a href="/home/newpaper" class="qd confirm">确定</a>
+              <a  href="javascript:" onclick="hide_box('.chuangjian');" class="qx  zx-close">取消</a> 
+          </span>
+          <a href="javascript:" onclick="hide_box('.chuangjian');" class="zx-close" ><i class="icon cb"></i></a>
+    </div>
+     <div class="bg"></div>   
+</div>

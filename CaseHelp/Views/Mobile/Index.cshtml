@@ -1,0 +1,324 @@
+﻿@{ 
+    Layout = null;
+    CasePaper paper = ViewBag.Paper as CasePaper;
+    ViewBag.Title = paper==null?"问卷调查表":paper.Title;
+    var questlist = ViewBag.QList as List<CaseQuestBank>;
+}
+@using CaseHelp_Model;
+<!doctype html>
+<html>
+<head lang="zh-cmn-Hans">
+    <meta charset="utf-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-title" content="直销同城网">
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telphone=no" />
+    <meta name="format-detection" content="email=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <!-- iOS 图标 begin -->
+    <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-57x57-precomposed.png" />
+    <!-- iPhone 和 iTouch，默认 57x57 像素，必须有 -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png" />
+    <!-- Retina iPhone 和 Retina iTouch，114x114 像素，可以没有，但推荐有 -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144-precomposed.png" />
+    <!-- Retina iPad，144x144 像素，可以没有，但推荐有 -->
+    <!-- iOS 图标 end -->
+    <!-- 禁止百度移动搜索对网页进行转码 -->
+    <meta http-equiv="Cache-Control" content="no-transform " />
+    <!--下面三个是清除缓存 微信浏览器缓存严重又无刷新；这个方法调试的时候很方便-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- Link Swiper's CSS -->
+
+<title>@ViewBag.Title</title>
+<link rel="stylesheet" type="text/css" href="/content/css/css1.css" />
+</head>
+<body class="answerbj">
+<div class="body-m">
+<div class="answer">
+	<div class="tp"><img src="/content/images/tx.png" class="img" /><p class="a"></p></div>
+    <div class="answers">
+    	<h2 class="a">@(paper != null?paper.Title:"")</h2>
+        <p class="b">@(paper != null?paper.Remark:"")</p>
+		<div class="listt">
+			<ul class="list clear">
+                <li class="item"><span class="fl">案&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</span><span class="fl fl1"><input id="caseno" onblur="return checkcaseno();" class="tab" type="text" /></span><span id="casenoTips" style="color :red;display:none;font-size:12px;padding-left:20px;">请输入案号</span></li>
+@*                <li class="item"><span class="fl">您的姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span><span class="fl fl1"><input class="tab" type="text" /></span></li>
+                <li class="item"><span class="fl">您的联系电话：</span><span class="fl fl1"><input class="tab" type="text" /></span></li>*@
+            </ul>
+        </div>
+        <ul class="lisa clear" id="quest_ul">
+        	@{
+                if (questlist != null && questlist.Count > 0)
+                {
+                    int num = 0;
+                    foreach (CaseQuestBank item in questlist)
+                    {
+                        num++;
+                        switch(item.TypeId)
+                        {    case 1:
+                            {
+                                <li class="item" id="@(item.Id)_@(item.TypeId)">
+            	                    <div class="ta">@(num)、@item.Problem<em class="color">[单选]</em><span id="Tips@(item.Id)" style="color :red;display:none;font-size:12px;padding-left:20px;">请回答</span></div>
+                                    @if(!string.IsNullOrEmpty(item.ItemList))
+                                    {
+                                        string[] sArray = item.ItemList.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries);
+                                        foreach (string i in sArray)
+                                        {
+                                            <div class="tb">
+                	                            <label class="zx-lab clearfix">
+                                                    <input class="zx-input" type="radio" name="danxuan@(item.Id)">
+                                                    <div class="zx-input-k radio "><i class="zx"></i></div>
+                                                    <span class="zx-lab-text">@i</span>
+                                                </label>
+                                            </div>
+                                        }
+                                    }
+                                </li>
+                                break;
+                            }
+                        case 2:
+                            {
+                                <li class="item" id="@(item.Id)_@(item.TypeId)">
+            	                    <div class="ta">@(num)、@item.Problem<em class="color">[多选]</em><span id="Tips@(item.Id)" style="color :red;display:none;font-size:12px;padding-left:20px;">请回答</span></div>
+                                    @if(!string.IsNullOrEmpty(item.ItemList))
+                                    {
+                                        string[] sArray = item.ItemList.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries);
+                                        foreach (string i in sArray)
+                                        {
+                                                <div class="tb">
+                                                <label class="zx-lab">
+                                                    <input class="zx-input" type="checkbox">
+                                                    <div class="zx-input-k"><i class="zx"></i></div>
+                                                    <span class="zx-lab-text">@i</span>
+                                                </label>
+                                            </div>
+                                        }
+                                    }
+                                </li>
+                                break;
+                            }
+                        case 4:
+                            {
+                                <li class="item" id="@(item.Id)_@(item.TypeId)">
+                                    <div class="ta">@(num)、@item.Problem<span id="Tips@(item.Id)" style="color :red;display:none;font-size:12px;padding-left:20px;">请回答</span></div>
+                                    <div class="tc"><input class="tab1" type="text" /></div>
+                                </li>
+                                break;
+                            }
+                        case 5:
+                            {
+                                <li class="item" id="@(item.Id)_@(item.TypeId)">
+                                    <div class="ta">@(num)、@item.Problem<span id="Tips@(item.Id)" style="color :red;display:none;font-size:12px;padding-left:20px;">请回答</span></div>
+                                    <div class="tc"><textarea class="tab2"></textarea></div>
+                                </li>
+                                break;
+                            }
+                        default:
+                            break;
+                        }
+
+                    }
+                } 
+            }
+           
+            <li class="item"><a href="javascript:" onclick="submitanswers();" class="submit bgcolor">提交信息</a></li>
+        </ul>
+    </div>
+    <div class="answer-b"><p>长沙市中级人民法院知识产权与涉外商事审判庭<br />0731-85798384</p></div>
+    <div class="answer-b1"><a href="http://www.zhihucn.com/" target="_blank">系统由直弧股份提供技术支持</a></div>
+</div>
+</div>
+<!--结束页-->
+<div  class="enddiv poo-tc" style="display:none;">
+    <div class="pop-js pop-two">
+	    <div class="answer-a">
+    	    <i class="ai"></i>
+            <p class="bb">信息填写到此结束，感谢您的使用！</p>
+        </div>
+        <span class="anniu clear"> <a href="javascript:" onclick="reloadpage();" class="qd subm">确定</a> </span>
+    </div>
+     <div class="bg"></div>  
+</div>
+<!--结束页 end-->
+<script type="text/javascript" src="/Scripts/js/jquery-1.11.1.min.js"></script>
+<script src="/Scripts/js/zx.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery("#caseno").focus();
+    });
+    function checkcaseno() {
+        var cno = jQuery("#caseno").val();
+        var reg = /^[a-z0-9]+$/g;
+        if (cno == "") {
+            $("#casenoTips").show();
+            jQuery("#caseno").focus();
+            return false;
+        }
+        else if (!reg.test(cno)) {
+            $("#casenoTips").text('用户名只能由数字和小写字母组成！');
+            $("#casenoTips").show();
+            jQuery("#caseno").focus();
+            return false;
+        } else {
+            $("#casenoTips").hide();
+        }
+        //else if (cno.length < 2 || cno.length > 7) {
+        //    jQuery("#UserIdtips").text('用户名由2至7位数字或小写字母组成！');
+        //    jQuery("#UserIdtips").css("color", "red");
+        //    jQuery("#textUserId").focus();
+        //    return false;
+        //}
+
+
+        $.ajax({
+            url: "/ajax/PostCaseNo",
+            type: "post",
+            dataType: "text",
+            data: { cno: $.trim(jQuery("#caseno").val()) },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },//打印返回错误的上下文
+            success: function (d) {
+                if (d == "[object XMLDocument]") {
+                    $("#casenoTips").hide();
+                } else
+                    if (d == "1") {
+                        $("#casenoTips").text('您的案件不属于我案承办或尚未递交我院！');
+                        $("#casenoTips").show();
+                        jQuery("#caseno").focus();
+                        return false;
+                    } else if (d == "2") {
+                        $("#casenoTips").text('该案号已提交过资料，请不要重复提交！');
+                        $("#casenoTips").show();
+                        jQuery("#caseno").focus();
+                        return false;
+                    } else {
+                        $("#casenoTips").hide();
+                    }
+            }
+        });
+    }
+
+    function submitanswers()//批量提交所有回答
+    {
+        var cno = $("#caseno").val();
+        var dataBase = {}, qListItems = [];
+        if (cno == "")
+        {
+            alert("请填写案号！");
+            return false;
+        }
+        var hascom = 1;
+        $('#quest_ul').children('li').each(function (i) {
+        
+            var liid = $(this).attr('id');//这是问题的ID
+            var sp = liid.split('_');
+            var qid = sp[0];
+            var qans = "";
+            if (sp[1] == 1)
+            {
+                $(this).find('.tb').each(function (i) {
+                    if ($(this).find('div').hasClass("hover"))
+                    {
+                        var check = $(this).find('.zx-lab-text').text();
+                        qans = check;
+                    }
+
+                });
+            }
+            else if (sp[1] == 2) {
+                var duoans = "";
+                $(this).find('.tb').each(function (i) {
+                    if ($(this).find('div').hasClass("hover")) {
+                        var check = $(this).find('.zx-lab-text').text();
+                        duoans += check + "，";
+                    }
+
+                });
+                qans = duoans;
+            }
+            else if (sp[1] == 4 )
+            {
+                qans = $(this).find('.tab1').val();
+            }
+            else if (sp[1] == 5) {
+                qans = $(this).find('.tab2').val();
+
+            }
+            var listItems = {};
+            listItems.id = qid;
+            listItems.name = qans;
+            
+            qListItems.push(listItems)
+            if (qans == "")//有题未完成
+            {
+                hascom = 0;
+                $("#Tips" + qid).show();
+            }
+            else {
+                $("#Tips" + qid).hide();
+            }
+        });
+        dataBase.qListItems = qListItems;
+        var json = JSON.stringify(dataBase);
+        //console.log(JSON.stringify(dataBase));
+        
+        var pid = '@(paper != null?paper.Id:0)';
+        aler(pid);
+        if (hascom == 1) {
+            $.ajax({
+                url: "/ajax/AddAnswer",
+                type: "post",
+                dataType: "text",
+                data: { json: json, caseno: cno, pid: pid },
+                error: function (XmlHttpRequest, textStatus, errorThrown) { },
+                success: function (d) {
+                    if (d == "ok") {
+                        qy_box('.enddiv');
+                    }
+                    else if (d == "two") {
+                        $("#casenoTips").text('该案号已提交过资料，请不要重复提交！');
+                        $("#casenoTips").show();
+                        $("#casenoTips").focus();
+                    }
+                }
+            });
+        }
+    }
+    function reloadpage()
+    {
+        hide_box('.enddiv');
+        window.location.reload();
+    }
+</script>
+</body>
+</html>
+

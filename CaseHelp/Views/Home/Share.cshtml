@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>分享</title>
+    <link rel="stylesheet" type="text/css" href="/content/css/css.css" />
+    <link rel="stylesheet" type="text/css" href="/content/css/css2.css" />
+</head>
+<body background="#5f5f5f">
+    <div class="share">
+        <div class="tp clear"><b class="fl">问卷分享</b><a href="javascript:" onclick="window.close();" class="fr i"></a></div>
+        <p class="ta">分享连接<em>复制连接分享给用户进行填写</em></p>
+        <span class="tb">@(HttpContext.Current.Request.Url.Host+"/paper/index/")@ViewBag.ShareId</span>
+        <p class="ta">二维码</p>
+        <span class="tc">
+            <img src="@ViewBag.SURL" class="img" />
+            <p class="a">微信扫描二维码分享给用户填写</p>
+        </span><a href="javascript:" onclick="window.close();" class="bgcolor td">关闭</a>
+    </div>
+
+</body>
+</html>

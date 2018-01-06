@@ -1,0 +1,192 @@
+﻿@{
+    ViewBag.Title = "问卷收集信息导出";
+    var paperlist = ViewBag.PList as List<CasePaper>;
+    var questlist = ViewBag.QuestList as List<CaseQuestBank>;
+    var answerlist = ViewBag.AnswerList as List<CaseAnswer>;
+    CasePaper paper = ViewBag.Paper as CasePaper;
+    int paperid = paper != null ? paper.Id : 0;
+}
+@using CaseHelp_Model;
+@model UserInfo
+<link rel="stylesheet" type="text/css" href="/content/css/css.css" />
+<div class="hzy-head bgcolor2 clear">
+  <div class="fl hzy-info"><img src="/content/images/tx3.png" width="34" height="34" class="img" /></div>
+  <div class="fl hzy-tab">
+    <ul class="list clear">
+       <li class="li-a"><a href="/home/index" >创建问卷</a></li>
+      <li class="li-a"><a href="/home/paper">我的问卷</a></li>
+      <li class="li-a"><a href="/home/information">基本资料</a></li>
+      <li class="li-a"><a href="/paper/count" class="hover">数据导出</a></li>
+      <li class="li-a"><a href="/home/caseno">案号导入</a></li>
+    </ul>
+  </div>
+  <div class="name">@(Model != null?Model.NickName:"")丨<a href="@Url.Content("~/Login/LoginOut")" class="white">退出</a></div>
+</div>
+<div class="w100 clear">
+  <div class="fl hzy-form clear"> <span class="txta">已创建问卷</span>
+    <ul class="list clear">
+      @{
+            if (paperlist != null && paperlist.Count > 0)
+            {
+                int num = 0;
+                foreach (CasePaper item in paperlist)
+                {
+                    num++;
+                     <li class="li-b"><a href="/paper/count/?pid=@item.Id" class="a b @(item.Id==paperid?"hover":"") ">@(num)、@(item.Title)</a></li>   
+                }
+            } 
+       }
+    </ul>
+  </div>
+  <div class="fl hzy-container clear">
+     @{
+         if(paper != null)
+         {
+            <div class="wen-bar">
+              <h3 class="ts1">@(paper != null?paper.Title:"")</h3>
+              <div class="time-bar clear"> <span class="fl cjsj">创建时间:@(paper != null? paper.AddTime.Value.ToString("yyyy-MM-dd HH:mm:ss"):"")</span>
+                <div class="time-bar2 clear">
+                  <div class="time-box fl"> <span class="sj fl">选择时间</span> <span class="kuang fl">
+                      <input type="text" class="demo-input" placeholder="请选择日期" id="test1"><a href="#" class="icon rili"></a></span> <span class="sj fl">至</span> 
+                      <span class="kuang fl"><input type="text" class="demo-input" placeholder="请选择日期" id="test2"><a href="#" class="icon rili"></a></span> </div>
+                  <a href="javascript:" onclick="timeexport();" class="daoc ml20 fl">按时间导出</a> </div>
+              </div>
+              <div class="biaoge clear">
+                <table style="  border-collapse:collapse;border-spacing:0; width:100%;">
+                  <tr class="bt bt2">
+                    <th class="a1">选择</th>
+                    <th class="a2">序号</th>
+                    <th class="a3">案件号</th>
+                    <th class="a6">提交时间</th>
+                    <th class="a7">状态</th>
+                    <th class="a8">导出时间</th>
+                    <th class="a9">查看</th>
+                  </tr>
+                    @{
+                        if (answerlist != null && answerlist.Count > 0)
+                        {
+                            int num = 0;
+                            foreach (CaseAnswer item in answerlist)
+                            {
+                                num++;
+                                <tr class="bt bt3 zx-delet-item" data-id="0">
+                                    <td class="a1"><label class="zx-lab zx-tab-check"><input class="zx-input" type="checkbox"><div class="zx-input-k"><i class="zx"></i></div></label></td>
+                                    <td class="a2">@(num)</td>
+                                    <td class="a3">@(item.AnswerList)</td>
+                                    <td class="a6">@(item.AddTime.Value.ToString("yyyy-MM-dd HH:mm:ss"))</td>
+                                    <td class="a7">未导出</td>
+                                    <td class="a8"></td>
+                                    <td class="a9"><i class="icon sees" ></i></td>
+                                  </tr>   
+                            }
+                        } 
+                    }
+                </table>
+              </div>
+              <div class="caoz-bar clear">
+                <div class="fl"> <a href="javascript:" class="daoc">按序号导出</a> <span class="tex"><label class="zx-lab quanxuan"><input class="zx-input" type="checkbox"><span class="zx-lab-text">全选</span><div class="zx-input-k"><i class="zx"></i></div></label></span> </div>
+                <div class="page">
+                    @{
+                         if (ViewBag.Total > 20)
+                         {
+                            @Html.Raw(CaseHelp_Core.Tools.PagingHelper.GetPagingNew("/paper/count/", ViewBag.PageIndex, 20, ViewBag.Total, 3, "?pid=" + (paper != null?paper.Id:0)))
+                         }
+                    }
+                </div>
+              </div>
+            </div>
+         }
+     }
+    <a href="http://www.zhihucn.com/" target="_blank" class="zhihu">系统由直弧股份提供技术支持</a> </div>
+</div>
+<!--导出数据-->
+<div  class="exportdiv poo-tc" style="display:none;">
+<div class="pop-dc pop-two" style="top:8%;" >
+	<h2 class="tp">选择要导出的问题<a onclick="hide_box('.exportdiv');" class="i"></a></h2>
+    <div class="pop-dc1">
+    	<ul class="list clear"  id="query_ul">
+            @{
+                if (questlist != null && questlist.Count > 0)
+                {
+                    int num = 0;
+                    foreach (CaseQuestBank item in questlist)
+                    {
+                        num++;
+                        <li class="item">
+            	            <label class="zx-lab">
+                	            <input class="zx-input" type="checkbox">
+              		            <div class="zx-input-k"><i class="zx"></i></div>
+                                <span style="display:none;" class="zx-span-id">@item.Id</span>
+                 	            <span class="zx-lab-text">@(num).@item.Problem</span>
+         		            </label>
+                        </li>  
+                    }
+                } 
+           }
+
+        </ul>
+    </div>
+    <a href="javascript:" onclick="gotoexport();"   class="pop-dc2 bgcolor">导出</a>
+</div>
+     <div class="bg"></div>  
+</div>
+<!--导出数据  end1-->
+<script src="/Scripts/js/laydate/laydate.js"></script> <!-- 改成你的路径 -->
+<script>
+    lay('#version').html('-v'+ laydate.v);
+    //执行一个laydate实例
+    laydate.render({
+      elem: '#test1' //指定元素
+    });
+    laydate.render({
+      elem: '#test2' //指定元素
+    });
+    //按时间导出
+    function timeexport()
+    {
+        var sdate = $("#test1").val();
+        var edate = $("#test2").val();
+        var idlist = "";
+        $('#query_ul').children('li').each(function (i) {
+            if ($(this).find('div').hasClass("hover")) {
+                idlist += $(this).find('.zx-span-id').text() + ",";
+            }
+        });
+        if (sdate == "" || edate == "") {
+            alert("请输入导出日期条件");
+            return false;
+        }
+        else {
+            qy_box('.exportdiv');//创建问卷标题
+        }
+    }
+
+    function gotoexport()
+    {
+        var sdate = $("#test1").val();
+        var edate = $("#test2").val();
+        var idlist = "";
+        $('#query_ul').children('li').each(function (i) {
+            if ($(this).find('div').hasClass("hover")) {
+                idlist += $(this).find('.zx-span-id').text() + ",";
+            }
+        });
+        if (sdate == "" || edate == "") {
+            alert("请输入导出日期条件");
+            return false;
+        } 
+        $.ajax({
+            url: "/ajax/ExportCsv",
+            type: "post",
+            dataType: "text",
+            data: { sdate:sdate,edate:edate,idlist:idlist },
+            error: function (XmlHttpRequest, textStatus, errorThrown) { },
+            success: function (d) {
+                if (d == "ok") {
+                    hide_box('.exportdiv');
+                    window.location.href = "/paper/Export/" + '@(paper != null?paper.Id:0)';
+                }
+            }
+        });
+    }
+</script>
